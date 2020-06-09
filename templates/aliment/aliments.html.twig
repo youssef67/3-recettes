@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aliments{% endblock %}
+
+{% block monTitre %}Liste des aliments        
+    {% if isCalorie %}
+        avec moins de 50 calories
+    {% elseif isGlucide %}
+        avec moins de 50 glucides
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="row m-2 p-2">
+    <a class="col-3 btn btn-primary text-white m-2" href="{{ path("aliments") }}">Tous</a>
+    <a class="col-3 btn btn-primary text-white m-2" href="{{ path("alimentsParCalorie", {'calorie' : 50}) }}">Aliment avec moins de 50 caloris/100g</a>
+    <a class="col-3 btn btn-primary text-white m-2" href="{{ path("alimentsParGlucide", {'glucide' : 5}) }}">Aliment avec moins de 5 glucide/100g</a>
+</div>
+<div class="row p-2 m-2">
+    {% for aliment in aliments %}
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+        <div class="card align-items-center col-center" style="width: 18rem;">
+            <img src="{{asset("images/" ~ aliment.image)}}" class="card-img-top">
+            <div class="card-body">
+                <h3 class="card-title"><a href="">{{ aliment.nom }}</a></h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Calorie : <span class="font-weight-bold">{{ aliment.calorie }}</span></li>
+                <li class="list-group-item">Proteine : <span class="font-weight-bold">{{ aliment.proteine }}</span></li>
+                <li class="list-group-item">Glucide : <span class="font-weight-bold">{{ aliment.glucide }}</span></li>
+                <li class="list-group-item">Lipide : <span class="font-weight-bold">{{ aliment.lipide }}</span></li>
+            </ul>
+            <div class="card-body">
+                <p class="btn btn-info">Prix : {{ aliment.prix }} € </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

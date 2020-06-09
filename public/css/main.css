@@ -1,0 +1,15 @@
+.card-img-top
+{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card
+{
+    margin: 15px;
+}
+
+.col-center{
+    margin:0 auto;
+  }
