@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - modification{% endblock %}
+
+{% block monTitre %}Modification {{ aliment.nom }} / Admninistrateur{% endblock %}
+{% block body %}
+    {{form_start(form, {'attr' : {'class': 'col-6'}})}}
+        {{form_widget(form)}}
+        <input type="submit" class="btn btn-primary" value="enregistrer">
+    {{form_end(form)}}
+
+
+{% endblock %}
