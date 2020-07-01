@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - modification{% endblock %}
+
+{% block monTitre %}
+    {% if isModification %}
+        Modification {{ aliment.nom }} / Admninistrateur
+    {% else %}
+        Ajout / Admninistrateur
+    {% endif %}
+{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+        <div class="row text-center">
+            <div class="col-6 mx-auto">
+                <img src="{{ asset("images/" ~ aliment.image)}}" style="width: 35%;" alt="{{aliment.nom}}">
+                <div>{{ form_row(form.image) }}</div>
+                <div>{{ form_row(form.nom, {'attr' : {'class':'text-danger'}, "label" : "nom de l'aliment"})}}</div>
+            </div>
+            <div class="co-6 mx-auto">
+                <div>{{ form_row(form.prix) }}</div>
+                <div>{{ form_row(form.calorie) }}</div>
+                <div>{{ form_row(form.proteine) }}</div>
+                <div>{{ form_row(form.glucide) }}</div>
+                <div>{{ form_row(form.lipide) }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mx-auto">
+                <input type="submit" class="btn btn-success" value="enregistrer">
+            </div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
