@@ -13,8 +13,10 @@
     {{ form_start(form) }}
         <div class="row text-center">
             <div class="col-6 mx-auto">
-                <img src="{{ asset("images/" ~ aliment.image)}}" style="width: 35%;" alt="{{aliment.nom}}">
-                <div>{{ form_row(form.image) }}</div>
+                {% if isModification %}
+                    <img src="{{ asset("images/aliments/" ~ aliment.image)}}" style="width: 35%;" alt="{{aliment.nom}}">
+                {% endif %}
+                <div>{{ form_row(form.imageFile) }}</div>
                 <div>{{ form_row(form.nom, {'attr' : {'class':'text-danger'}, "label" : "nom de l'aliment"})}}</div>
             </div>
             <div class="co-6 mx-auto">

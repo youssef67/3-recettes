@@ -58,7 +58,7 @@ class AdminAlimentController extends AbstractController
      * @Route("/admin/aliment/{id}", name="admin_aliment_suppression", methods="delete")
      */
     public function suppression(Aliment $aliment, Request $request, EntityManagerInterface $entityManager)
-    { 
+    {
         if ($this->isCsrfTokenValid("SUP" . $aliment->getId(), $request->get('_token')))
         {
             $entityManager->remove($aliment);

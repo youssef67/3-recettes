@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\AlimentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AlimentRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AlimentRepository::class)
+ * @Vich\Uploadable
  */
 class Aliment
 {
@@ -19,13 +24,20 @@ class Aliment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3,max=15, minMessage="3 caractères minimum", maxMessage="15 caractères maximum")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Range(min=0.1, max=100, notInRangeMessage="prix entre 0.1 et 100")
      */
     private $prix;
+
+    /**
+     * @Vich\UploadableField(mapping="aliment_image", fileNameProperty="image")
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -51,6 +63,31 @@ class Aliment
      * @ORM\Column(type="float")
      */
     private $lipide;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile)
+        {
+            $this->updated_at = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
 
     public function getId(): ?int
     {
@@ -86,7 +123,7 @@ class Aliment
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -137,6 +174,18 @@ class Aliment
     public function setLipide(float $lipide): self
     {
         $this->lipide = $lipide;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
