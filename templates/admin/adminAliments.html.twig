@@ -15,6 +15,7 @@
         <tr class="table-primary">
             <th scope="col">Image</th>
             <th scope="col">Aliment</th>
+            <th scope="col">Type</th>
             <th scope="col">Prix</th>
             <th scope="col">Calorie</th>
             <th scope="col">Proteine</th>
@@ -29,6 +30,7 @@
             <td><img src="{{ asset("images/aliments/" ~ aliment.image) }}" alt="" style="height: 100px; width: 100px;"></td>
             <td>{{ aliment.nom }}</td>
             <td>{{ aliment.prix }}</td>
+            <td>{{ aliment.type.libelle }}</td>
             <td>{{ aliment.calorie }}</td>
             <td>{{ aliment.proteine }}</td>
             <td>{{ aliment.glucide }}</td>
