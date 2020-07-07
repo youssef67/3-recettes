@@ -70,6 +70,11 @@ class Aliment
     private $updated_at;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="aliments")
+     */
+    private $type;
+
+    /**
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
     public function setImageFile(?File $imageFile = null): self
@@ -186,6 +191,18 @@ class Aliment
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
