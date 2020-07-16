@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - modification Type{% endblock %}
+
+{% block monTitre %}
+    {% if isModification %}
+        Modification {{ type.libelle }} / Admninistrateur
+    {% else %}
+        Ajout type / Admninistrateur
+    {% endif %}
+{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+        <div class="row text-center">
+            <div class="col-6 mx-auto">
+                {% if isModification %}
+                    <img src="{{ asset("images/types/" ~ type.image)}}" style="width: 35%;" alt="{{type.libelle}}">
+                {% endif %}
+                <div>{{ form_row(form.imageFile) }}</div>
+                <div>{{ form_row(form.libelle, {'attr' : {'class':'text-danger'}, "label" : "nom du type"})}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mx-auto">
+                <input type="submit" class="btn btn-success" value="enregistrer">
+            </div>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

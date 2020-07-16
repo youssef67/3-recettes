@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block monTitre %}Liste des types / Admninistrateur{% endblock %}
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+
+<a class="btn btn-success text-white m-2" href="{{ path("admin_ajout")}}">Ajouter</a>
+<table class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Image</th>
+            <th scope="col">Aliment</th>
+            <th scope="col">actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for type in types %}
+        <tr>
+            <td><img src="{{ asset("images/types/" ~ type.image) }}" alt="" style="height: 100px; width: 100px;"></td>
+            <td>{{ type.libelle }}</td>
+            <td>
+                <a href="{{ path("admin_modif_type", {'id' : type.id })}}" class="btn btn-secondary">Modifier</a>
+                <form method="POST" style="display:inline-block" action="{{ path("admin_suppression_type", {'id' : type.id })}}" onsubmit="return confirm('confirmer la suppression ?')">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ type.id)}}">
+                    <input type="submit" class="btn btn-danger" value="supprimer">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
